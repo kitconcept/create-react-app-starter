@@ -1,8 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  const [planets, setPlanets] = useState({});
+
+  async function fetchData() {
+    const res = await fetch("https://swapi.co/api/planets/4/");
+    res.json().then(res => setPlanets(res));
+  }
+
+  useEffect(() => {
+    fetchData();
+  });
+
   return (
     <div className="App">
       <header className="App-header">
@@ -19,6 +30,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <div>{JSON.stringify(planets)}</div>
     </div>
   );
 }
